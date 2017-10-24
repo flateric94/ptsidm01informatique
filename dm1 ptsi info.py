@@ -4,6 +4,8 @@
 
 Ceci est un script temporaire.
 """
+import numpy as np
+
 
 def encodage_naif(L):
     return L+L+L
@@ -98,19 +100,35 @@ def decodage_Hamming_segment_explique(L):
     message_explique.append(bit_de_parite([L[0],L[2],L[4],L[6]]))
     return(message_explique)
 
+def segmentation(L):
+    taille=4
+    if int(len(L)) % taille==0:
+        n=int(len(L)/taille)
+        tableau=np.zeros((n,taille))
+        increment_colone=0
+        increment_ligne=0
+        for k in range(0,int(len(L))):
+            tableau[increment_ligne,increment_colone]=L[k]
+            increment_colone=increment_colone+1
+            if increment_colone==taille:
+                increment_ligne=increment_ligne+1
+                increment_colone=0
+        return(tableau)
+        
 
 
-
-
+#print(segmentation([1,2,3,4,5,6,7,8]))
+print(segmentation([1,2,3,4,5,6,7,8,9,10,11,12]))
 
 
 #8) 
 #print(encodage_Hamming_segment([1,0,1,1]))
 #resultat encodage 1011 : [0, 1, 1, 0, 0, 1, 1]
-print(decodage_Hamming_segment([0, 1, 1, 0, 0, 1, 1]))
-print(decodage_Hamming_segment_explique([0, 1, 1, 0, 0, 1, 1]))
-print(decodage_Hamming_segment([1, 0, 1, 0, 0, 1, 1]))
-print(decodage_Hamming_segment_explique([1, 0, 1, 0, 0, 1, 1]))
+#print(decodage_Hamming_segment([0, 1, 1, 0, 0, 1, 1]))
+#print(decodage_Hamming_segment([0, 1, 1, 0, 0, 1, 1]))
+#print(decodage_Hamming_segment_explique([0, 1, 1, 0, 0, 1, 1]))
+#print(decodage_Hamming_segment([1, 0, 1, 0, 0, 1, 1]))
+#print(decodage_Hamming_segment_explique([1, 0, 1, 0, 0, 1, 1]))
 
 
 
