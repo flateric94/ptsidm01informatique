@@ -64,8 +64,62 @@ def decodage_b2p(L):
             return(True,message_a_decoder) 
         else:
             return(False,[])
-   
-        
+ 
+
+def encodage_Hamming_segment(L):
+    if int(len(L))==4:
+        message=[]
+        message.append(bit_de_parite([L[0],L[1],L[3]]))
+        message.append(bit_de_parite([L[0],L[2],L[3]]))
+        message.append(L[0])
+        message.append(bit_de_parite([L[1],L[2],L[3]]))
+        message.append(L[1])
+        message.append(L[2])
+        message.append(L[3])
+        return(message)
+
+def decodage_Hamming_segment(L):
+    if int(len(L))!=7:
+        return(False,[])
+    if bit_de_parite([L[3],L[4],L[5],L[6]])!=0:
+        return(False,L)
+    if bit_de_parite([L[1],L[2],L[5],L[6]])!=0:
+        return(False,L)
+    if bit_de_parite([L[0],L[2],L[4],L[6]])!=0:
+        return(False,L)
+    return(True,L)
+
+def decodage_Hamming_segment_explique(L):
+    if int(len(L))!=7:
+        return(False,[])
+    message_explique=[]
+    message_explique.append(bit_de_parite([L[3],L[4],L[5],L[6]]))
+    message_explique.append(bit_de_parite([L[1],L[2],L[5],L[6]]))
+    message_explique.append(bit_de_parite([L[0],L[2],L[4],L[6]]))
+    return(message_explique)
+
+
+
+
+
+
+
+#8) 
+#print(encodage_Hamming_segment([1,0,1,1]))
+#resultat encodage 1011 : [0, 1, 1, 0, 0, 1, 1]
+print(decodage_Hamming_segment([0, 1, 1, 0, 0, 1, 1]))
+print(decodage_Hamming_segment_explique([0, 1, 1, 0, 0, 1, 1]))
+print(decodage_Hamming_segment([1, 0, 1, 0, 0, 1, 1]))
+print(decodage_Hamming_segment_explique([1, 0, 1, 0, 0, 1, 1]))
+
+
+
+#print(encodage_Hamming_segment([1,0,1,1]))
+#print(encodage_Hamming_segment([0,1,0,1]))    
+#print(decodage_Hamming_segment(encodage_Hamming_segment([0,1,0,1])))    
+#print(decodage_Hamming_segment([0,1,1,0,0,1,1]))    
+#print(decodage_Hamming_segment([0,1,1,0,0,1,1]))    
+#print(decodage_Hamming_segment([1,1,1,0,1,1,0]))        
 #print(decodage_b2p([0,1,0,1,0]))
 
 #print(encodage_b2p([1,0,1,1]))
@@ -81,7 +135,7 @@ def decodage_b2p(L):
 
 #print(decodage_naif([0,0,0,1]))
 #print(decodage_naif([0,1,1,0,1,0]))
-#print(decodage_naif([0,0,1,0,0,1]))
+#print(decodage_naif([1,0,1,0,0,1]))
 
 #[0,1] [1,0] [1,0]
 
