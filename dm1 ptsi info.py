@@ -104,7 +104,7 @@ def segmentation(L):
     taille=4
     if int(len(L)) % taille==0:
         n=int(len(L)/taille)
-        tableau=np.zeros((n,taille))
+        tableau=np.zeros((n,taille),int)
         increment_colone=0
         increment_ligne=0
         for k in range(0,int(len(L))):
@@ -115,11 +115,36 @@ def segmentation(L):
                 increment_colone=0
         return(tableau)
         
+def encodage_Hamming(L):
+#je fabrique un tableau numpy en appelant segmentation avec L
+#je stocke cette reponse dans une variable tableau
+#compter nombre de lignes,
+#creer un tableau de 7 avec autants de lignes
+#boucle sur les lignes du tableau
+#transforme chaques lignes grace a encodage hamming: 4-->7
+#chaque ligne dans le tableau de 7 colones, 
+#renvois le tableau.
+    taille=4
+    if int(len(L)) % taille==0:
+        tableau_brut=segmentation(L)
+        (a,b)=np.shape(tableau_brut)
+        tableau_encode=np.zeros((a,b+3),int)
+        for k in range(0,a):
+            tableau_encode[k]=encodage_Hamming_segment(tableau_brut[k])
+        return(tableau_encode)
+        
+#print(encodage_Hamming([1,2,3,4,5,6,7]))
+#print(encodage_Hamming([1,2,3,4,5,6,7,8,9,1,2,3,4,5]))
+print(encodage_Hamming([0,1,0,1,1,0,1,1,0,0,1,1]))
+
+
+
+
 
 
 #print(segmentation([1,2,3,4,5,6,7,8]))
-print(segmentation([1,2,3,4,5,6,7,8,9,10,11,12]))
-
+#print(segmentation([1,2,3,4,5,6,7,8,9,10,11,12]))
+#print(segmentation([0,1,1,0,0,1,1,0]))
 
 #8) 
 #print(encodage_Hamming_segment([1,0,1,1]))
