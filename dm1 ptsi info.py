@@ -89,7 +89,7 @@ def decodage_Hamming_segment(L):
         return(False,L)
     if bit_de_parite([L[0],L[2],L[4],L[6]])!=0:
         return(False,L)
-    return(True,L)
+    return(True,[L[2],L[4],L[5],L[6]])
 
 def decodage_Hamming_segment_explique(L):
     if int(len(L))!=7:
@@ -125,39 +125,72 @@ def encodage_Hamming(L):
             tableau_encode[k]=encodage_Hamming_segment(tableau_brut[k])
         return(tableau_encode)
     
+def decodage_Hamming(tableau_encode):
+    liste_resultat=[]
+    (a,b)=np.shape(tableau_encode)
+    for k in range(0,a):
+        (x,y)=decodage_Hamming_segment(tableau_encode[k])
+        if x==True:
+            liste_resultat=liste_resultat+y
+        else:
+            return(False,tableau_encode)
+    return(True,liste_resultat)
+
     
     
     
     
-    
-    
-#10)je fabrique un tableau numpy en appelant segmentation avec L
+#11)
+# cas true (j'encode et je decode)
+print(decodage_Hamming(encodage_Hamming([0,1,0,1,1,0,1,1,0,0,1,1])))
+# cas false (je decode une erreur)
+print(decodage_Hamming([[0, 1, 0, 0, 1, 0, 1],[0, 1, 1, 1, 0, 1, 1],[1, 0, 0, 0, 0, 1, 1]]))
+
+
+
+#10)
+#je fabrique un tableau numpy en appelant segmentation avec L
 #je stocke cette reponse dans une variable tableau
 #compter nombre de lignes,
 #creer un tableau de 7 avec autants de lignes
 #boucle sur les lignes du tableau
 #transforme chaques lignes grace a encodage hamming: 4-->7
 #chaque ligne dans le tableau de 7 colones, 
-#renvois le tableau.    
-#print(encodage_Hamming([1,2,3,4,5,6,7,8]))
-#print(encodage_Hamming([1,2,3,4,5,6,7,8,9,1,2,3,4,5]))
+#renvoie le tableau.    
+
+#exemple cas true
+#print(encodage_Hamming([0,1,1,0]))
+#print(decodage_Hamming_segment([0, 1, 1, 0, 0, 1, 1]))
+
+#deuxieme exemple cas true
 #print(encodage_Hamming([0,1,0,1,1,0,1,1,0,0,1,1]))
-print(encodage_Hamming([0,1,1,0]))
 
-
-
-
+#print(encodage_Hamming([0,1,0,1]))
+#print(decodage_Hamming_segment([0, 1, 0, 0, 1, 0, 1]))
+#print(encodage_Hamming([1,0,1,1]))
+#print(decodage_Hamming_segment([0, 1, 1, 0, 0, 1, 1]))
+#print(encodage_Hamming([0,0,1,1]))
+#print(decodage_Hamming_segment([1, 0, 0, 0, 0, 1, 1]))
+#print(decodage_Hamming_segment())
 
 #print(segmentation([1,2,3,4,5,6,7,8]))
 #print(segmentation([1,2,3,4,5,6,7,8,9,10,11,12]))
 #print(segmentation([0,1,1,0,0,1,1,0]))
 
 #8) 
+#cas true car resultat encodage 1011 est [0, 1, 1, 0, 0, 1, 1]
 #print(encodage_Hamming_segment([1,0,1,1]))
-#resultat encodage 1011 : [0, 1, 1, 0, 0, 1, 1]
 #print(decodage_Hamming_segment([0, 1, 1, 0, 0, 1, 1]))
+#cas false
+#print(encodage_Hamming_segment([1,0,1,1]))
 #print(decodage_Hamming_segment([0, 1, 1, 0, 0, 1, 0]))
-#print(decodage_Hamming_segment_explique([0, 1, 1, 0, 0, 1, 1]))
+
+
+#6)
+#cas false
+#print(decodage_Hamming_segment([0, 1, 1, 0, 0, 1, 0]))
+#print(decodage_Hamming_segment_explique([0, 1, 1, 0, 0, 1, 0]))
+#cas false
 #print(decodage_Hamming_segment([1, 0, 1, 0, 0, 1, 1]))
 #print(decodage_Hamming_segment_explique([1, 0, 1, 0, 0, 1, 1]))
 
